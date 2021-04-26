@@ -2,6 +2,7 @@ package openRemote.demo.API;
 
 import openRemote.demo.Model.SolarData;
 import openRemote.demo.Repository.SolarData_Repo;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,9 +11,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
+@RequestMapping("/solar")
 public class SolarDataController {
     @Autowired
     private SolarData_Repo repository;
@@ -24,7 +25,7 @@ public class SolarDataController {
     }
 
     @GetMapping("/getData/{id}")
-    public SolarData GetData(@PathVariable UUID id){
+    public SolarData GetData(@PathVariable ObjectId id){
         return repository.findById(id).orElse(null);
     }
 

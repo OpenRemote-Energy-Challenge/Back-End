@@ -4,10 +4,9 @@ import lombok.Generated;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.ToString;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,7 +17,7 @@ public class EnergyData {
 
     @Id
     @Generated
-    public UUID id;
+    public ObjectId id;
     public String timestamp;
     public String name;
     public String attribute_name;

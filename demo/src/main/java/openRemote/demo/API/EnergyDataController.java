@@ -2,11 +2,11 @@ package openRemote.demo.API;
 
 import openRemote.demo.Model.EnergyData;
 import openRemote.demo.Repository.EnergyDataRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/energy")
@@ -22,7 +22,7 @@ public class EnergyDataController {
     }
 
     @GetMapping("/getData/{id}")
-    public EnergyData GetData(@PathVariable UUID id){
+    public EnergyData GetData(@PathVariable ObjectId id){
         return repository.findById(id).orElse(null);
     }
 

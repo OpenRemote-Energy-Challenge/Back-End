@@ -1,6 +1,7 @@
-package com.openremote.repository;
+package openRemote.demo.Repository;
 
-import com.openremote.model.EnergyData;
+
+import openRemote.demo.Model.EnergyData;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.UUID;
 

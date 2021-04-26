@@ -1,8 +1,7 @@
-package com.openremote.resource;
+package openRemote.demo.API;
 
-import com.openremote.model.EnergyData;
-import com.openremote.model.SolarData;
-import com.openremote.repository.EnergyDataRepository;
+import openRemote.demo.Model.EnergyData;
+import openRemote.demo.Repository.EnergyDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

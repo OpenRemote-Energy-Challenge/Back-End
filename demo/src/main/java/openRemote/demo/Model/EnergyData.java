@@ -1,4 +1,4 @@
-package com.openremote.model;
+package openRemote.demo.Model;
 
 import lombok.Generated;
 import lombok.Setter;

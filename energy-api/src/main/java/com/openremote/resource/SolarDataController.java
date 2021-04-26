@@ -1,8 +1,7 @@
-package openRemote.demo.API;
+package com.openremote.resource;
 
-import openRemote.demo.Model.SolarData;
-import openRemote.demo.Repository.SolarData_Repo;
-import org.bson.types.ObjectId;
+import com.openremote.model.SolarData;
+import com.openremote.repository.SolarDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,17 +15,18 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/solar")
 public class SolarDataController {
+
     @Autowired
-    private SolarData_Repo repository;
+    private SolarDataRepository repository;
 
     @PostMapping("/addData")
     public String AddData(@RequestBody SolarData data){
         repository.save(data);
-       return "added data with id: " + data._id;
+        return "added data with id: " + data.id;
     }
 
     @GetMapping("/getData/{id}")
-    public SolarData GetData(@PathVariable ObjectId id){
+    public SolarData GetData(@PathVariable UUID id){
         return repository.findById(id).orElse(null);
     }
 
@@ -65,5 +65,4 @@ public class SolarDataController {
             e.printStackTrace();
         }
     }
-
 }

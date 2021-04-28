@@ -44,4 +44,6 @@
   - ls /Back-end/demo
   - mvn clean package
   - docker build -t openremote-energy .
-  - docker run --ip <ip address> -p 9090:8080 openremote-energy
+  - docker run -d --ip <ip address> -p 9090:8080 openremote-energy
+  - (listing container) docker ps -a
+  - (removing container) docker container rm <container id>

@@ -35,4 +35,15 @@
     "attribute_name": "String",
     
     "value": double,
-  }   
+  } 
+  
+  Add Dockercontainer to VPS:
+  
+  - ssh <ip address> -l <user>
+  - git clone https://github.com/OpenRemote-Energy-Challenge/Back-End.git
+  - ls /Back-end/demo
+  - mvn clean package
+  - docker build -t openremote-energy .
+  - docker run -d --ip <ip address> -p 9090:8080 openremote-energy
+  - (listing container) docker ps -a
+  - (removing container) docker container rm <container id>

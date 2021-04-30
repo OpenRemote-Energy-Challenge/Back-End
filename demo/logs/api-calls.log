@@ -1,0 +1,11 @@
+[INFO ] 2021-04-30 10:35:54.478 [main] DemoApplication - Starting DemoApplication using Java 16.0.1 on KapiteinKoek with PID 9372 (C:\Users\Pouki\Documents\.FOL_GitHub\Back-End\demo\target\classes started by Pouki in C:\Users\Pouki\Documents\.FOL_GitHub\Back-End\demo)
+[DEBUG] 2021-04-30 10:35:54.482 [main] DemoApplication - Running with Spring Boot v2.4.4, Spring v5.3.5
+[INFO ] 2021-04-30 10:35:54.482 [main] DemoApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-30 10:35:55.884 [main] DemoApplication - Started DemoApplication in 1.652 seconds (JVM running for 2.214)
+[INFO ] 2021-04-30 10:36:53.875 [main] DemoApplication - Starting DemoApplication using Java 16.0.1 on KapiteinKoek with PID 20180 (C:\Users\Pouki\Documents\.FOL_GitHub\Back-End\demo\target\classes started by Pouki in C:\Users\Pouki\Documents\.FOL_GitHub\Back-End\demo)
+[INFO ] 2021-04-30 10:36:53.881 [main] DemoApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-30 10:36:55.210 [main] DemoApplication - Started DemoApplication in 1.578 seconds (JVM running for 2.141)
+2021-04-30 11:08:54.184 [INFO ] [main] openRemote.demo.DemoApplication DemoApplication - Starting DemoApplication using Java 16.0.1 on KapiteinKoek with PID 8844 (C:\Users\Pouki\Documents\.FOL_GitHub\Back-End\demo\target\classes started by Pouki in C:\Users\Pouki\Documents\.FOL_GitHub\Back-End\demo)
+2021-04-30 11:08:54.189 [DEBUG] [main] openRemote.demo.DemoApplication DemoApplication - Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-04-30 11:08:54.189 [INFO ] [main] openRemote.demo.DemoApplication DemoApplication - No active profile set, falling back to default profiles: default
+2021-04-30 11:08:55.731 [INFO ] [main] openRemote.demo.DemoApplication DemoApplication - Started DemoApplication in 1.813 seconds (JVM running for 2.433)

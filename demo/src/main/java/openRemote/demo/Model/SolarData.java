@@ -1,24 +1,16 @@
 package openRemote.demo.Model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-
-@Getter
-@Setter
-@ToString
-
+@Data
 @Document(collection="Solar_Data")
 public class SolarData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Generated
     public ObjectId id;
     public String timestamp;
     public String name;

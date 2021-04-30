@@ -1,17 +1,11 @@
 package openRemote.demo.Model;
 
-import lombok.Generated;
-import lombok.Setter;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter
-@Setter
-@ToString
-
+@Data
 @Document("Energy_Data")
 public class EnergyData {
 

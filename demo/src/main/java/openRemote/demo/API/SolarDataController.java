@@ -4,12 +4,15 @@ import openRemote.demo.Model.SolarData;
 import openRemote.demo.Model.UserModel;
 import openRemote.demo.Repository.SolarData_Repo;
 import openRemote.demo.Repository.UserRepository;
+import openRemote.demo.addons.Authorisation;
+import openRemote.demo.addons.Logging;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,17 +26,17 @@ public class SolarDataController {
     @Autowired
     private SolarData_Repo solarRepo;
 
-    @Autowired
-    private UserRepository userRepo;
-
-    private static Logger logger = LogManager.getLogger("PropertiesConfig");
+    private Logging logger;
+    private Authorisation auth;
 
     @PostMapping("/addData/{userid}")
-    public String AddData(@RequestBody SolarData data, @PathVariable ObjectId userid){
-        UserModel user = userRepo.findById(userid).orElse(null);
-        if(user.accessLevel >= 1) {
+    public String AddData(@RequestBody SolarData data, @PathVariable ObjectId userid, HttpServletRequest request){
+        String address = logger.getIpAddress(request);
+        String name = auth.IsAuthorised(userid, 1);
+        logger.Logger(name, "/solar/addData/", address);
+
+        if(name != null) {
             solarRepo.save(data);
-            logger.info("/solar/addData by accesslevel " + user.accessLevel);
             return "added data with id: " + data.id;
         }
 
@@ -41,33 +44,37 @@ public class SolarDataController {
     }
 
     @GetMapping("/getData/{objectid}/{userid}")
-    public SolarData GetData(@PathVariable ObjectId objectid, @PathVariable ObjectId userid){
-        UserModel user = userRepo.findById(userid).orElse(null);
-        if(user.accessLevel >= 1) {
-            logger.info("/solar/getData/" + objectid + "by acceslevel " + user.accessLevel);
+    public SolarData GetData(@PathVariable ObjectId objectid, @PathVariable ObjectId userid, HttpServletRequest request){
+        String address = logger.getIpAddress(request);
+        String name = auth.IsAuthorised(userid, 1);
+        logger.Logger(name, "/solar/getData/{objectid}", address);
+
+        if(name != null)
             return solarRepo.findById(objectid).orElse(null);
-        }
 
         return null;
     }
 
     @GetMapping("/getData/{userid}")
-    public List<SolarData> GetData(@PathVariable ObjectId userid){
-        UserModel user = userRepo.findById(userid).orElse(null);
-        if(user.accessLevel >= 1) {
-            logger.info("/solar/getData by accesslevel " + user.accessLevel);
+    public List<SolarData> GetData(@PathVariable ObjectId userid, HttpServletRequest request){
+        String address = logger.getIpAddress(request);
+        String name = auth.IsAuthorised(userid, 1);
+        logger.Logger(name, "/solar/getData/", address);
+
+        if(name != null)
             return solarRepo.findAll();
-        }
 
         return null;
     }
 
     @GetMapping("/pushData/{userid}")
-    public String PushData(@PathVariable ObjectId userid){
-        UserModel user = userRepo.findById(userid).orElse(null);
-        if(user.accessLevel >= 1) {
+    public String PushData(@PathVariable ObjectId userid, HttpServletRequest request){
+        String address = logger.getIpAddress(request);
+        String name = auth.IsAuthorised(userid, 1);
+        logger.Logger(name, "/solar/pushData/", address);
+
+        if(name != null) {
             ImportCsvData();
-            logger.info("/solar/importData");
             return "pushed csv data.";
         }
 

@@ -29,7 +29,7 @@ public class EnergyDataController {
         UserModel user = userRepo.findById(id).orElse(null);
         if(user.accessLevel >= 1) {
             energyRepo.save(data);
-            logger.info("/energy/addData by acceslevel" + user.accessLevel);
+            logger.info("/energy/addData by acceslevel " + user.accessLevel);
             return "added data with id: " + data.id;
         }
         return "data error: unauthorized";
@@ -39,7 +39,7 @@ public class EnergyDataController {
     public EnergyData GetData(@PathVariable ObjectId objectid, @PathVariable ObjectId userid){
         UserModel user = userRepo.findById(userid).orElse(null);
         if(user.accessLevel >= 1) {
-            logger.info("/energy/getData/" + objectid + "by acceslevel" + user.accessLevel);
+            logger.info("/energy/getData/" + objectid + "by acceslevel " + user.accessLevel);
             return energyRepo.findById(objectid).orElse(null);
         }
         return null;
@@ -49,7 +49,7 @@ public class EnergyDataController {
     public List<EnergyData> GetData(@PathVariable ObjectId userid){
         UserModel user = userRepo.findById(userid).orElse(null);
         if(user.accessLevel >= 1) {
-            logger.info("/energy/getData/ by acceslevel" + user.accessLevel);
+            logger.info("/energy/getData/ by acceslevel " + user.accessLevel);
             return energyRepo.findAll();
         }
         return null;

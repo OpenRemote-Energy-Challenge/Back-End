@@ -33,7 +33,7 @@ public class SolarDataController {
         UserModel user = userRepo.findById(userid).orElse(null);
         if(user.accessLevel >= 1) {
             solarRepo.save(data);
-            logger.info("/solar/addData");
+            logger.info("/solar/addData by accesslevel " + user.accessLevel);
             return "added data with id: " + data.id;
         }
 
@@ -44,7 +44,7 @@ public class SolarDataController {
     public SolarData GetData(@PathVariable ObjectId objectid, @PathVariable ObjectId userid){
         UserModel user = userRepo.findById(userid).orElse(null);
         if(user.accessLevel >= 1) {
-            logger.info("/solar/getData/" + objectid);
+            logger.info("/solar/getData/" + objectid + "by acceslevel " + user.accessLevel);
             return solarRepo.findById(objectid).orElse(null);
         }
 
@@ -55,7 +55,7 @@ public class SolarDataController {
     public List<SolarData> GetData(@PathVariable ObjectId userid){
         UserModel user = userRepo.findById(userid).orElse(null);
         if(user.accessLevel >= 1) {
-            logger.info("/solar/getData");
+            logger.info("/solar/getData by accesslevel " + user.accessLevel);
             return solarRepo.findAll();
         }
 

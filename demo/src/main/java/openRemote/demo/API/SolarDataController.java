@@ -1,7 +1,9 @@
 package openRemote.demo.API;
 
 import openRemote.demo.Model.SolarData;
+import openRemote.demo.Model.UserModel;
 import openRemote.demo.Repository.SolarData_Repo;
+import openRemote.demo.Repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
@@ -19,34 +21,57 @@ import java.util.List;
 public class SolarDataController {
 
     @Autowired
-    private SolarData_Repo repository;
+    private SolarData_Repo solarRepo;
+
+    @Autowired
+    private UserRepository userRepo;
 
     private static Logger logger = LogManager.getLogger("PropertiesConfig");
 
-    @PostMapping("/addData")
-    public String AddData(@RequestBody SolarData data){
-        repository.save(data);
-        logger.info("/solar/addData");
-       return "added data with id: " + data.id;
+    @PostMapping("/addData/{userid}")
+    public String AddData(@RequestBody SolarData data, @PathVariable ObjectId userid){
+        UserModel user = userRepo.findById(userid).orElse(null);
+        if(user.accessLevel >= 1) {
+            solarRepo.save(data);
+            logger.info("/solar/addData");
+            return "added data with id: " + data.id;
+        }
+
+        return "data error: unauthorized";
     }
 
-    @GetMapping("/getData/{id}")
-    public SolarData GetData(@PathVariable ObjectId id){
-        logger.info("/solar/getData/" + id);
-        return repository.findById(id).orElse(null);
+    @GetMapping("/getData/{objectid}/{userid}")
+    public SolarData GetData(@PathVariable ObjectId objectid, @PathVariable ObjectId userid){
+        UserModel user = userRepo.findById(userid).orElse(null);
+        if(user.accessLevel >= 1) {
+            logger.info("/solar/getData/" + objectid);
+            return solarRepo.findById(objectid).orElse(null);
+        }
+
+        return null;
     }
 
-    @GetMapping("/getData")
-    public List<SolarData> GetData(){
-        logger.info("/solar/getData");
-        return repository.findAll();
+    @GetMapping("/getData/{userid}")
+    public List<SolarData> GetData(@PathVariable ObjectId userid){
+        UserModel user = userRepo.findById(userid).orElse(null);
+        if(user.accessLevel >= 1) {
+            logger.info("/solar/getData");
+            return solarRepo.findAll();
+        }
+
+        return null;
     }
 
-    @GetMapping("/pushData")
-    public String PushData(){
-        ImportCsvData();
-        logger.info("/solar/importData");
-        return "pushed csv data.";
+    @GetMapping("/pushData/{userid}")
+    public String PushData(@PathVariable ObjectId userid){
+        UserModel user = userRepo.findById(userid).orElse(null);
+        if(user.accessLevel >= 1) {
+            ImportCsvData();
+            logger.info("/solar/importData");
+            return "pushed csv data.";
+        }
+
+        return "data error: unauthorized";
     }
 
     public void ImportCsvData(){

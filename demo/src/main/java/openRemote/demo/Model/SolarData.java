@@ -12,6 +12,7 @@ public class SolarData {
     @Id
     @Generated
     public ObjectId id;
+
     public String timestamp;
     public String name;
     public String attribute_name;

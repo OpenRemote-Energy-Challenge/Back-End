@@ -26,7 +26,9 @@ public class SolarDataController {
     @Autowired
     private SolarData_Repo solarRepo;
 
+    @Autowired
     private Logging logger;
+    @Autowired
     private Authorisation auth;
 
     @PostMapping("/addData/{userid}")

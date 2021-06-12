@@ -1,9 +1,11 @@
 package openRemote.demo.addons;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Component
 public class Logging {
 
     private static Logger logger = LogManager.getLogger("PropertiesConfig");
@@ -13,6 +15,11 @@ public class Logging {
     }
 
     public String getIpAddress(HttpServletRequest request){
-        return request.getRemoteAddr();
+        String ipAddress = request.getHeader("X-FORWARDED-FOR");
+        if (ipAddress == null) {
+            ipAddress = request.getRemoteAddr();
+        }
+
+        return ipAddress;
     }
 }

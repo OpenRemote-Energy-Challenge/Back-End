@@ -22,7 +22,9 @@ public class EnergyDataController {
     @Autowired
     private EnergyDataRepository energyRepo;
 
+    @Autowired
     private Logging logger;
+    @Autowired
     private Authorisation auth;
 
     @PostMapping("/addData/{id}")

@@ -5,13 +5,12 @@ import openRemote.demo.Model.UserModel;
 import openRemote.demo.Repository.UserRepository;
 import openRemote.demo.addons.Authorisation;
 import openRemote.demo.addons.Logging;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -20,12 +19,14 @@ public class UserController {
     @Autowired
     private UserRepository repository;
 
+    @Autowired
     private Logging logger;
+    @Autowired
     private Authorisation auth;
 
     @PostMapping("/login")
     public UserModel Login(@RequestBody LoginModel model, HttpServletRequest request){
-        UserModel user = repository.FindByName(model);
+        UserModel user = repository.findUserByUsernameAndPassword(model.fullName, model.password);
         String address = logger.getIpAddress(request);
         logger.Logger(user.fullName, "/user/register/", address);
         return user;
@@ -39,5 +40,16 @@ public class UserController {
 
         if(name != null)
             repository.insert(newUser);
+    }
+
+    @GetMapping("/getUser")
+    public List<UserModel> getUser(){
+        return repository.findAll();
+    }
+
+    @PostMapping("/addUser")
+    public UserModel addUser(@RequestBody UserModel model){
+        repository.save(model);
+        return model;
     }
 }

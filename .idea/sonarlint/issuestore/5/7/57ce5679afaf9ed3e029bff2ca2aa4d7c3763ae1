@@ -1,0 +1,9 @@
+
+g	java:S116"MRename this field "Id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÑ­şÿÿÿÿ
+o
+java:S1104"TMake password a static final constant or non-public and provide accessors if needed.(¼şòüÿÿÿÿ
+r
+java:S1104"WMake accessLevel a static final constant or non-public and provide accessors if needed.(î™®Àÿÿÿÿÿ
+j
+java:S1104"TMake fullName a static final constant or non-public and provide accessors if needed.(ùßŞ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ùÄÛ¬

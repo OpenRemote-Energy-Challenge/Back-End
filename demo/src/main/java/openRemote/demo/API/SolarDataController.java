@@ -5,12 +5,14 @@ import openRemote.demo.Model.UserModel;
 import openRemote.demo.Repository.SolarData_Repo;
 import openRemote.demo.Repository.UserRepository;
 import openRemote.demo.addons.Authorisation;
+import openRemote.demo.addons.FileLoader;
 import openRemote.demo.addons.Logging;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
@@ -30,6 +32,8 @@ public class SolarDataController {
     private Logging logger;
     @Autowired
     private Authorisation auth;
+    @Autowired
+    private FileLoader loader;
 
     @PostMapping("/addData/{userid}")
     public String AddData(@RequestBody SolarData data, @PathVariable ObjectId userid, HttpServletRequest request){
@@ -69,41 +73,15 @@ public class SolarDataController {
         return null;
     }
 
-    @GetMapping("/pushData/{userid}")
-    public String PushData(@PathVariable ObjectId userid, HttpServletRequest request){
+    @GetMapping("/pushData")
+    public String PushData(@RequestParam("file")MultipartFile file , HttpServletRequest request){
         String address = logger.getIpAddress(request);
-        String name = auth.IsAuthorised(userid, 1);
-        logger.Logger(name, "/solar/pushData/", address);
-
-        if(name != null) {
-            ImportCsvData();
-            return "pushed csv data.";
+        logger.Logger("user", "/solar/pushData/", address);
+        if(file != null) {
+            loader.ImportCsvData(file);
+            return "pushed csv data";
         }
 
-        return "data error: unauthorized";
+        return "ERROR: file is null";
     }
-
-    public void ImportCsvData(){
-        try {
-            String line = "";
-
-            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/SolarData.csv"));
-            while((line = br.readLine())!=null){
-                String [] data = line.split(",");
-
-                SolarData sd = new SolarData();
-                sd.timestamp = data[0];
-                sd.name = data[1];
-                sd.attribute_name = data[2];
-                sd.value = Double.parseDouble(data[3]);
-            }
-        }
-        catch(FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

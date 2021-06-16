@@ -5,12 +5,14 @@ import openRemote.demo.Model.UserModel;
 import openRemote.demo.Repository.EnergyDataRepository;
 import openRemote.demo.Repository.UserRepository;
 import openRemote.demo.addons.Authorisation;
+import openRemote.demo.addons.FileLoader;
 import openRemote.demo.addons.Logging;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -26,6 +28,8 @@ public class EnergyDataController {
     private Logging logger;
     @Autowired
     private Authorisation auth;
+    @Autowired
+    private FileLoader loader;
 
     @PostMapping("/addData/{id}")
     public String AddData(@RequestBody EnergyData data, @PathVariable ObjectId id, HttpServletRequest request){
@@ -64,4 +68,15 @@ public class EnergyDataController {
         return null;
     }
 
+    @GetMapping("/pushData")
+    public String PushData(@RequestParam("file") MultipartFile file , HttpServletRequest request){
+        String address = logger.getIpAddress(request);
+        logger.Logger("user", "/energy/pushData/", address);
+        if(file != null) {
+            loader.ImportCsvData(file);
+            return "pushed csv data";
+        }
+
+        return "ERROR: file is null";
+    }
 }

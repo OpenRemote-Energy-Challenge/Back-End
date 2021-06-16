@@ -73,15 +73,12 @@ public class SolarDataController {
         return null;
     }
 
-    @GetMapping("/pushData")
-    public String PushData(@RequestParam("file")MultipartFile file , HttpServletRequest request){
+    @PostMapping("/push")
+    public void Push(@RequestParam("File") MultipartFile file, HttpServletRequest request){
         String address = logger.getIpAddress(request);
-        logger.Logger("user", "/solar/pushData/", address);
-        if(file != null) {
+        logger.Logger("user", "/energy/pushData/", address);
+        if(file != null){
             loader.ImportCsvDataSolar(file);
-            return "pushed csv data";
         }
-
-        return "ERROR: file is null";
     }
 }

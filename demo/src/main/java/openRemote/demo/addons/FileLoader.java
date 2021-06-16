@@ -22,7 +22,7 @@ public class FileLoader {
         try {
             String line = "";
 
-            BufferedReader br = new BufferedReader(new FileReader((File) file));
+            BufferedReader br = new BufferedReader(new FileReader(convert(file)));
             while((line = br.readLine())!=null){
                 String [] data = line.split(",");
 
@@ -46,15 +46,14 @@ public class FileLoader {
     public void ImportCsvDataEnergy(MultipartFile file) {
         try {
             String line = "";
-
-            BufferedReader br = new BufferedReader(new FileReader((File) file));
+            BufferedReader br = new BufferedReader(new FileReader(convert(file)));
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
 
                 EnergyData sd = new EnergyData();
                 sd.timestamp = data[0];
                 sd.name = data[1];
-                sd.uv = Double.parseDouble(data[2]);
+                sd.uv = Integer.parseInt(data[2]);
 
                 sd.timestamp_year = Integer.parseInt(data[3]);
                 sd.timestamp_month = Integer.parseInt(data[4]);
@@ -70,5 +69,14 @@ public class FileLoader {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static File convert(MultipartFile file) throws IOException {
+        File convFile = new File(file.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
     }
 }

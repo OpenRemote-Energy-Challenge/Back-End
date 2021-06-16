@@ -15,7 +15,7 @@ public class EnergyData {
 
     public String timestamp;
     public String name;
-    public double uv;
+    public int uv;
 
     public int timestamp_year;
     public int timestamp_month;

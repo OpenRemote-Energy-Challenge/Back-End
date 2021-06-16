@@ -78,7 +78,7 @@ public class SolarDataController {
         String address = logger.getIpAddress(request);
         logger.Logger("user", "/solar/pushData/", address);
         if(file != null) {
-            loader.ImportCsvData(file);
+            loader.ImportCsvDataSolar(file);
             return "pushed csv data";
         }
 

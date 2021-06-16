@@ -15,6 +15,13 @@ public class EnergyData {
 
     public String timestamp;
     public String name;
-    public String attribute_name;
-    public double wattage;
+    public double uv;
+
+    public int timestamp_year;
+    public int timestamp_month;
+    public int timestamp_week;
+    public int timestamp_day;
+    public int timestamp_hour;
+    public int timestamp_minute;
+    public int timestamp_dayofweek;
 }

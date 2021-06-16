@@ -73,7 +73,7 @@ public class EnergyDataController {
         String address = logger.getIpAddress(request);
         logger.Logger("user", "/energy/pushData/", address);
         if(file != null) {
-            loader.ImportCsvData(file);
+            loader.ImportCsvDataEnergy(file);
             return "pushed csv data";
         }
 

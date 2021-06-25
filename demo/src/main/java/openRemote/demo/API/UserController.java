@@ -26,10 +26,15 @@ public class UserController {
 
     @PostMapping("/login")
     public UserModel Login(@RequestBody LoginModel model, HttpServletRequest request){
-        UserModel user = repository.findUserByUsernameAndPassword(model.fullName, model.password);
-        String address = logger.getIpAddress(request);
-        logger.Logger(user.fullName, "/user/register/", address);
-        return user;
+        UserModel user = repository.findByfullName(model.fullName).orElse(null);
+
+        if(model.password.toString().equals(user.password.toString())) {
+            String address = logger.getIpAddress(request);
+            logger.Logger(user.fullName, "/user/register/", address);
+            return user;
+        }
+
+        return null;
     }
 
     @PostMapping("/register/{userid}")

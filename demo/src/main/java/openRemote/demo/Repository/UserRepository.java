@@ -6,8 +6,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends MongoRepository<UserModel, ObjectId> {
     @Query("{fullName : ?0, password : ?1}")
     UserModel findUserByUsernameAndPassword(String fullName, String password);
+
+    Optional<UserModel> findByfullName(String fullName);
 }

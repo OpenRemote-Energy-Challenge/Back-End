@@ -9,7 +9,7 @@ public class UserCORS {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/solar")
+                registry.addMapping("/user")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedOrigins("http://localhost:3000");
 

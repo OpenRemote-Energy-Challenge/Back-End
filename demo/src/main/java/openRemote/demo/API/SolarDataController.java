@@ -21,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
+@CrossOrigin(origins = "http://51.75.73.83:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/solar")
 public class SolarDataController {

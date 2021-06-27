@@ -11,7 +11,7 @@ public class UserCORS {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/user")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedOrigins("http://localhost:3000");
+                        .allowedOrigins("http://51.75.73.83:3000");
 
             }
         };

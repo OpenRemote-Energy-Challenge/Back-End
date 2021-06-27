@@ -11,7 +11,7 @@ public class EnergyCorsConfi {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/energy")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedOrigins("http://localhost:3000");
+                        .allowedOrigins("http://51.75.73.83:3000");
 
             }
         };
